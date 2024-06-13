@@ -1,6 +1,6 @@
 import path from "path";
 import {EOL} from "os";
-import {removeDoubleEmptyLines} from "common/StringUtils";
+import {removeDoubleEmptyLines} from "../common/StringUtils";
 import CppFileParser from "./CppFileParser";
 import {IncludeFileNotFoundError} from "./Errors";
 import {findFile, readFile} from "./FileUtils";
@@ -63,6 +63,8 @@ export default class CppFileMerger {
 
     return [
       ...localIncludesContent,
+      // MT annotate origin
+      // "\n// " + filePath + "\n\n" +
       result.content
     ].join(EOL);
   }
@@ -105,6 +107,8 @@ export default class CppFileMerger {
 
         const sourceFileContent = this.parseFile(foundFilePath);
         if (sourceFileContent) {
+          // MT annotate origin
+          // contents.push("\n// " + foundFilePath + "\n\n");
           contents.push(sourceFileContent);
         }
       }
